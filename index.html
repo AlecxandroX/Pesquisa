@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisa de Satisfação</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+       body {
+    background-color: #6E6E6E;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+.container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto; /* centraliza a imagem horizontalmente */
+    border-radius: 10px; /* adiciona cantos arredondados */
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1); /* adiciona sombra */
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    margin-bottom: 10px;
+}
+
+.number-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #a238ff;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.number-button:hover {
+    background-color: #E6112E;
+}
+
+input[type="submit"] {
+    background-color: #a238ff;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #E6112E;
+}
+
+.form-check-label {
+    color: #6E6E6E;
+}
+
+.checkbox-custom {
+    display: none;
+}
+
+.checkbox-custom + label {
+    cursor: pointer;
+    padding-left: 30px;
+    position: relative;
+    font-size: 16px;
+    color: #6E6E6E;
+}
+
+.checkbox-custom + label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #a238ff;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+}
+
+.checkbox-custom:checked + label:before {
+    background-color: #a238ff;
+    border-color: #a238ff;
+}
+
+.checkbox-custom:focus + label:before {
+    box-shadow: 0 0 0 3px rgba(162, 56, 255, 0.1);
+}
+
+.checkbox-custom:checked + label:after {
+    content: '\2713';
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    font-size: 16px;
+    color: #fff;
+    transition: opacity 0.3s ease;
+}
+
+.checkbox-custom:checked:focus + label:after {
+    box-shadow: 0 0 0 3px rgba(162, 56, 255, 0.1);
+}
+
+.checkbox-custom:focus + label:before {
+    box-shadow: 0 0 0 3px rgba(162, 56, 255, 0.1);
+}
+
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="./7ae26d275da4474d90ad043a6ab4ca046d87af48.png" alt="">
+        <h2 class="text-center mb-4" style="color: #dc3545;">Pesquisa de Satisfação</h2>
+        <form id="surveyForm" action="processar_formulario.php" method="post">
+            <div class="form-group">
+                <label for="nota_atendimento">Nota para o atendimento:</label>
+                <div>
+                    <label class="mr-2"><input type="checkbox" name="nota_atendimento" value="1" required> 1</label>
+                    <label class="mr-2"><input type="checkbox" name="nota_atendimento" value="2" required> 2</label>
+                    <label class="mr-2"><input type="checkbox" name="nota_atendimento" value="3" required> 3</label>
+                    <label class="mr-2"><input type="checkbox" name="nota_atendimento" value="4" required> 4</label>
+                    <label><input type="checkbox" name="nota_atendimento" value="5" required> 5</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="chance_recomendar">Chances de recomendar a empresa:</label>
+                <div>
+                    <label class="mr-2"><input type="checkbox" name="chance_recomendar" value="1" required> 1</label>
+                    <label class="mr-2"><input type="checkbox" name="chance_recomendar" value="2" required> 2</label>
+                    <label class="mr-2"><input type="checkbox" name="chance_recomendar" value="3" required> 3</label>
+                    <label class="mr-2"><input type="checkbox" name="chance_recomendar" value="4" required> 4</label>
+                    <label><input type="checkbox" name="chance_recomendar" value="5" required> 5</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="elogio_reclamacao">Elogio ou reclamação (opcional):</label>
+                <textarea id="elogio_reclamacao" name="elogio_reclamacao" class="form-control" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Queremos nos conectar com você. Escolha como prefere se identificar:</label>
+                <div>
+                    <label class="mr-3"><input type="radio" name="identification_option" value="cpf" required> CPF</label>
+                    <label><input type="radio" name="identification_option" value="nome_completo" required> Nome Completo</label>
+                </div>
+            </div>
+            <div class="form-group" id="cpf_input" style="display: none;">
+                <label for="cpf">CPF:</label>
+                <input type="text" id="cpf" name="cpf" class="form-control" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" placeholder="123.456.789-00" required>
+                <small class="form-text text-muted">O CPF deve estar no formato XXX.XXX.XXX-XX.</small>
+            </div>
+            <div class="form-group" id="nome_input" style="display: none;">
+                <label for="nome">Nome completo:</label>
+                <input type="text" id="nome" name="nome_completo" class="form-control" required>
+            </div>
+            
+            <input type="submit" value="Enviar" class="btn btn-primary btn-block">
+        </form>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Toggle CPF and Nome inputs based on radio button selection
+            $('input[type="radio"]').change(function() {
+                if ($(this).val() === 'cpf') {
+                    $('#cpf_input').slideDown();
+                    $('#nome_input').slideUp();
+                } else {
+                    $('#cpf_input').slideUp();
+                    $('#nome_input').slideDown();
+                }
+            });
+
+            // Smooth scroll to top when clicking submit button
+            $('input[type="submit"]').click(function(e) {
+                e.preventDefault();
+                $('html, body').animate({ scrollTop: 0 }, 'slow');
+                return false;
+            });
+        });
+    </script>
+</body>
+</html>
